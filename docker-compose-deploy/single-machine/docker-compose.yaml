@@ -135,7 +135,7 @@ services:
       - redis-cluster-node-6377
       - redis-cluster-node-6378
 
-  openresty:
+  redis-cluster-openresty:
     image: luoye0602/openresty:latest
     networks:
       - redis-cluster-network
@@ -143,8 +143,9 @@ services:
     container_name: redis-cluster-openresty
     ports:
       - 8100:8080
-    depends_on:
-      - redis-cluster-create
+    volumes:
+      - ./conf/nginx.conf:/opt/bitnami/openresty/nginx/conf/nginx.conf
+      - ./conf/resty-redis-cluster-1.5.3/lib/resty:/opt/bitnami/openresty/site/lualib/resty
     links:
       - redis-cluster-node-6373
       - redis-cluster-node-6374
