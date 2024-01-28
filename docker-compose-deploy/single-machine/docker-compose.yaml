@@ -135,6 +135,23 @@ services:
       - redis-cluster-node-6377
       - redis-cluster-node-6378
 
+  openresty:
+    image: luoye0602/openresty:latest
+    networks:
+      - redis-cluster-network
+    hostname: redis-cluster-openresty
+    container_name: redis-cluster-openresty
+    ports:
+      - 8100:8080
+    depends_on:
+      - redis-cluster-create
+    links:
+      - redis-cluster-node-6373
+      - redis-cluster-node-6374
+      - redis-cluster-node-6375
+      - redis-cluster-node-6376
+      - redis-cluster-node-6377
+      - redis-cluster-node-6378
 networks:
   redis-cluster-network:
     driver: bridge
